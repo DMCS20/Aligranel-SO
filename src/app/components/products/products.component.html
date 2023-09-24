@@ -1,0 +1,127 @@
+<br>
+<h1>Administrador de productos</h1>
+
+<div class="add-button">
+  <button (click)="enableAdd = !enableAdd" mat-fab color="primary" aria-label="Add button">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="add-form" *ngIf="enableAdd">
+  <mat-form-field class="add-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="product.name">
+    <button *ngIf="product.name" matSuffix mat-icon-button aria-label="Clear" (click)="product.name=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="add-form-field">
+    <mat-label>Description</mat-label>
+    <input matInput type="text" [(ngModel)]="product.description">
+    <button *ngIf="product.description" matSuffix mat-icon-button aria-label="Clear" (click)="product.description=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="add-form-field">
+    <mat-label>Price (S/)</mat-label>
+    <input matInput type="text" [(ngModel)]="product.price">
+    <button *ngIf="product.price" matSuffix mat-icon-button aria-label="Clear" (click)="product.price=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="add-form-field">
+    <mat-label>Weight (KG)</mat-label>
+    <input matInput type="text" [(ngModel)]="product.weight">
+    <button *ngIf="product.weight" matSuffix mat-icon-button aria-label="Clear" (click)="product.weight=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="add-form-field">
+    <mat-label>Image URL</mat-label>
+    <input matInput type="text" [(ngModel)]="product.image">
+    <button *ngIf="product.image" matSuffix mat-icon-button aria-label="Clear" (click)="product.image=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <button mat-raised-button (click)="addProduct(); enableAdd=false; clearAllAddFields()" class="add-product-button" color="primary">Add product</button>
+</div>
+
+<br>
+
+<div class="mat-elevation-z8">
+    <table class="products-table" mat-table [dataSource]="dataSource">
+      
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element; let i = index"> 
+          <span *ngIf="!enableEdit || enableEditIndex != i">{{element.id}}</span>
+          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.id" />
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element; let i = index"> 
+          <span *ngIf="!enableEdit || enableEditIndex != i">{{element.name}}</span>
+          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.name" />
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element; let i = index"> 
+          <span *ngIf="!enableEdit || enableEditIndex != i">{{element.description}}</span>
+          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.description" />
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element; let i = index"> 
+          <span *ngIf="!enableEdit || enableEditIndex != i">S/ {{element.price}}</span>
+          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.price" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <td mat-cell *matCellDef="let element; let i = index"> 
+          <span *ngIf="!enableEdit || enableEditIndex != i">{{element.weight}} KG</span>
+          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.weight" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let element; let i = index"> 
+          <br> 
+          <img [src]="element.image"> 
+          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.image" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="modify">
+        <th mat-header-cell *matHeaderCellDef> Modify </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button mat-button *ngIf="enableEdit && enableEditIndex == i" (click)="enableEdit=false" class="btn page-secondary-action-btn">Cancel</button>
+          <button mat-button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn" class="btn page-primary-action-btn" (click)="updateProduct(i)" type="submit">Save</button>
+          <button mat-icon-button *ngIf="!enableEdit" (click)="enableEditMethod($event, i)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button *ngIf="!enableEdit" (click)="deleteProduct(element.id)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator class="paginator" [pageSizeOptions]="[8, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+  <br>

@@ -1,0 +1,30 @@
+h1{
+    text-align: center;
+}
+
+.add-button{
+    text-align: right;
+    margin-right: 50px;
+}
+
+img{
+    width: 200px;
+}
+
+.mat-elevation-z8{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+th, td{
+    text-align: center;
+}
+
+.add-form{
+    text-align: center;
+    margin-left: 20px;
+}
+
+.add-form-field{
+    margin-right: 20px;
+}

@@ -1,0 +1,21 @@
+a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-menu {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .nav-menu button.mat-icon-button {
+    margin-right: 10px;
+  }
