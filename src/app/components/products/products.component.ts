@@ -25,6 +25,8 @@ export class ProductsComponent implements OnInit{
   enableEditIndex = null;
   enableAdd = false;
 
+  isLoading=false;
+
   product: Product = {
     id: 0,
     name: '',
@@ -53,6 +55,7 @@ export class ProductsComponent implements OnInit{
   }
 
   getProductsList(){
+    this.isLoading=true;
     this.productsService.getProductsList().subscribe(
       {
         next: (res: any) =>{
@@ -71,7 +74,8 @@ export class ProductsComponent implements OnInit{
           console.log(err);
         }
       }
-    );  
+    );
+    this.isLoading=false;  
   }
 
   deleteProduct(id: number){

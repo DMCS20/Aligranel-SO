@@ -1,1 +1,63 @@
-<p>account works!</p>
+<h1>My payment methods</h1>
+
+<div *ngFor="let card of cards">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>VISA</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Number: {{card.censoredNumber}}</p>
+        <p>CVV: ***</p>
+        <p>Exp Date: {{card.expirationDate}}</p>
+        <p>Name: {{card.name}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="deleteCard(card.id)">DELETE</button>
+        <button mat-button>EDIT</button>
+      </mat-card-actions>
+    </mat-card>
+</div>
+
+
+<div class="add-button">
+    <button (click)="enableAdd = !enableAdd" mat-fab color="primary" aria-label="Add button">
+      <mat-icon>add</mat-icon>
+    </button>
+    <br>
+  </div>
+  
+  <div class="add-form" *ngIf="enableAdd">
+    <h2>Add a new card</h2>
+    <mat-form-field class="add-form-field">
+      <mat-label>Number</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.number">
+      <button *ngIf="newCard.number" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.number=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  
+    <mat-form-field class="add-form-field">
+      <mat-label>CVV</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.cvv">
+      <button *ngIf="newCard.cvv" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.cvv=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  
+    <mat-form-field class="add-form-field">
+      <mat-label>Expiration Date</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.expirationDate">
+      <button *ngIf="newCard.expirationDate" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.expirationDate=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  
+    <mat-form-field class="add-form-field">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.name">
+      <button *ngIf="newCard.name" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.name=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button (click)="postCard(); enableAdd=false; clearAllAddFields()" class="add-card-button" color="primary">Add card</button>

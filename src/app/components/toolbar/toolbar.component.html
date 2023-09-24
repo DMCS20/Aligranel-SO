@@ -2,14 +2,14 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <span><a href="/home">Aligranel</a></span>
+    <span (click)="redirectToHome()">Aligranel</span>
     <div class="nav-menu">
         <span class="example-spacer"></span>
-        <a href="/products"><button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <button (click)="redirectToProducts()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon>local_mall</mat-icon>
-        </button></a>
-        <a href="/account"><button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        </button>
+        <button (click)="redirectToAccount()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
         <mat-icon>account_circle</mat-icon>
-        </button></a>
+        </button>
     </div>
 </mat-toolbar>

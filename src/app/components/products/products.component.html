@@ -1,5 +1,9 @@
 <br>
-<h1>Administrador de productos</h1>
+<h1>Products Manager</h1>
+
+<div *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
 
 <div class="add-button">
   <button (click)="enableAdd = !enableAdd" mat-fab color="primary" aria-label="Add button">
