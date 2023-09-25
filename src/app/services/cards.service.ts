@@ -48,9 +48,9 @@ export class CardsService {
       .pipe(retry(2), catchError(this.errorHandler));
   }
 
-  updateCard(card: any): Observable<CreditCard> {
+  updateCard(card: any, idCard:any): Observable<CreditCard> {
     return this.http
-      .put<CreditCard>(environment.baseUrl + '/api/CreditCards' + '/' + card.id, JSON.stringify(card), this.httpOptions)
+      .put<CreditCard>(environment.baseUrl + '/api/CreditCards' + '/' + idCard, JSON.stringify(card), this.httpOptions)
       .pipe(retry(2), catchError(this.errorHandler));
   }
 

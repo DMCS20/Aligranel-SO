@@ -11,6 +11,7 @@ import { CardsService } from 'src/app/services/cards.service';
 export class AccountComponent {
   cards: any[]=[]
   enableAdd=false;
+  editingCardId: string | null = null;
 
   newCard={
     number:'',
@@ -75,4 +76,35 @@ export class AccountComponent {
       }
     )
   }
+  
+
+    editCard(card:any) {
+      this.editingCardId = card.id;
+      this.newCard.number=card.number;
+      this.newCard.cvv=card.cvv;
+      this.newCard.expirationDate=card.expirationDate;
+      this.newCard.name=card.name;
+    }
+
+    cancelEdit() {
+      this.editingCardId = null;
+      this.clearAllAddFields();
+    }
+
+    saveCardChanges(cardId: string) {
+      let expDate = new Date(this.newCard.expirationDate + '/01');
+      this.newCard.expirationDate = expDate.toISOString();
+        this.cardsService.updateCard(this.newCard, cardId).subscribe({
+          next: (data:any)=>{
+            this.getCardsList();
+          },
+          error: (error:any)=>{
+            console.error('Error updating card', error);
+          }
+        });
+      
+      this.editingCardId = null;
+      this.clearAllAddFields();
+    }
+
 }
