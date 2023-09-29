@@ -119,8 +119,8 @@ h1{
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
+    --bs-gutter-x: ;
+    --bs-gutter-y: 01.5rem;
     width: 100%;
     padding-right: calc(var(--bs-gutter-x) * .5);
     padding-left: calc(var(--bs-gutter-x) * .5);
@@ -217,7 +217,7 @@ h1{
     padding-left: 1.5rem!important;
     padding-right: 0!important;
     flex-direction: row-reverse!important;
-    margin-top: 85px !important;
+    margin-top: 10px;
 }
 
 .containerA1{
