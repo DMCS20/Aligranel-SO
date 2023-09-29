@@ -19,6 +19,10 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatRadioButton, MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -42,8 +46,11 @@ import {MatRadioButton, MatRadioModule} from '@angular/material/radio';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRadioModule
-    
+    MatRadioModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatDividerModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

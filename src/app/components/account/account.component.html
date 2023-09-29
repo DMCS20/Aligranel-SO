@@ -1,1 +1,86 @@
-<p>account works!</p>
+<h1>Mis métodos de pago</h1>
+
+<div *ngFor="let card of cards">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>VISA</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="editingCardId !== card.id">Number: {{card.censoredNumber}}</p>
+      <p *ngIf="editingCardId !== card.id">CVV: ***</p>
+      <p *ngIf="editingCardId !== card.id">Exp Date: {{card.expirationDate}}</p>
+      <p *ngIf="editingCardId !== card.id">Name: {{card.name}}</p>
+
+      <mat-form-field *ngIf="editingCardId === card.id">
+        <mat-label>Número</mat-label>
+        <input matInput type="text" [(ngModel)]="newCard.number">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="editingCardId === card.id">
+        <mat-label>CVV</mat-label>
+        <input matInput type="text" [(ngModel)]="newCard.cvv">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="editingCardId === card.id">
+        <mat-label>AAAA/MM</mat-label>
+        <input matInput type="text" [(ngModel)]="newCard.expirationDate">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="editingCardId === card.id">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" [(ngModel)]="newCard.name">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="deleteCard(card.id)">ELIMINAR</button>
+      <button mat-button (click)="editCard(card)" *ngIf="editingCardId !== card.id">EDITAR</button>
+      <button mat-button (click)="saveCardChanges(card.id)" *ngIf="editingCardId === card.id">GUARDAR</button>
+      <button mat-button (click)="cancelEdit()" *ngIf="editingCardId === card.id">CANCELAR</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
+
+<div class="add-button">
+    <button (click)="enableAdd = !enableAdd" mat-fab color="primary" aria-label="Add button">
+      <mat-icon>add</mat-icon>
+    </button>
+    <br>
+  </div>
+  
+  <div class="add-form" *ngIf="enableAdd">
+    <h2>Añadir nueva tarjeta</h2>
+    <mat-form-field class="add-form-field">
+      <mat-label>Número</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.number">
+      <button *ngIf="newCard.number" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.number=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  
+    <mat-form-field class="add-form-field">
+      <mat-label>CVV</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.cvv">
+      <button *ngIf="newCard.cvv" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.cvv=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  
+    <mat-form-field class="add-form-field">
+      <mat-label>AAAA/MM</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.expirationDate">
+      <button *ngIf="newCard.expirationDate" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.expirationDate=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  
+    <mat-form-field class="add-form-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" [(ngModel)]="newCard.name">
+      <button *ngIf="newCard.name" matSuffix mat-icon-button aria-label="Clear" (click)="newCard.name=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button (click)="postCard(); enableAdd=false; clearAllAddFields()" class="add-card-button" color="primary">Agregar tarjeta</button>

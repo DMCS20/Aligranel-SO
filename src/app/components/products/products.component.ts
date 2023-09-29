@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from '../../services/products.service';
 import { MatSort } from '@angular/material/sort';
 import { Product } from 'src/app/models/product';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -25,6 +25,8 @@ export class ProductsComponent implements OnInit{
   enableEditIndex = null;
   enableAdd = false;
 
+  isLoading=false;
+
   product: Product = {
     id: 0,
     name: '',
@@ -44,7 +46,7 @@ export class ProductsComponent implements OnInit{
     this.product.image = '';
   }
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.getProductsList();
@@ -53,6 +55,7 @@ export class ProductsComponent implements OnInit{
   }
 
   getProductsList(){
+    this.isLoading=true;
     this.productsService.getProductsList().subscribe(
       {
         next: (res: any) =>{
@@ -68,22 +71,23 @@ export class ProductsComponent implements OnInit{
         },
 
         error: (err: any) =>{
-          console.log(err);
+          this.toastr.error('Error al cargar los productos', 'Error');
         }
       }
-    );  
+    );
+    this.isLoading=false;  
   }
 
   deleteProduct(id: number){
     this.productsService.deleteProduct(id).subscribe(
       {
         next: (res: any) =>{
-          console.log(res);
+          this.toastr.success('Producto eliminado con éxito', 'Éxito');
           this.getProductsList();
         },
 
         error: (err: any) =>{
-          console.log(err);
+          this.toastr.error('Error al eliminar el producto', 'Error');
         }
       }
     );
@@ -107,12 +111,12 @@ export class ProductsComponent implements OnInit{
     this.productsService.updateProduct(productVM).subscribe(
       {
         next: (res: any) => {
-          console.log(res);
+          this.toastr.success('Producto actualizado con éxito', 'Éxito');
   
           this.getProductsList();
         },
         error: (err: any) => {
-          console.log(err);
+          this.toastr.error('Error al actualizar el producto', 'Error');
         }
       }
     );
@@ -133,12 +137,12 @@ export class ProductsComponent implements OnInit{
     this.productsService.addProduct(productVM).subscribe(
       {
         next: (res: any) => {
-          console.log(res);
+          this.toastr.success('Producto agregado con éxito', 'Éxito');
   
           this.getProductsList();
         },
         error: (err: any) => {
-          console.log(err);
+          this.toastr.error('Error al agregar el producto', 'Error');
         }
       }
     );

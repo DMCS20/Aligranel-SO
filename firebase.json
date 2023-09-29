@@ -1,0 +1,27 @@
+{
+  "hosting": {
+    "public": "dist/aligranel",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/api",
+        "headers": [
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; connect-src 'self' http://aligranel.eastus.cloudapp.azure.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
+          }
+        ]
+      }
+    ]
+  }
+}

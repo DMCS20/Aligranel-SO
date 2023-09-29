@@ -27,4 +27,23 @@ th, td{
 
 .add-form-field{
     margin-right: 20px;
+    width: 15rem;
 }
+
+
+.image-preview{
+    width: 300px;
+    height: 200px;
+    border: 3px solid black;
+    margin-bottom: 20px;
+}
+
+.product-image{
+    width: 240px;
+    height: 160px;
+}
+
+.edit-field{
+    width: 15rem;
+}
+

@@ -1,0 +1,24 @@
+h1{
+    text-align: center;
+}
+
+.example-card {
+    width: 20rem;
+    margin: 10px auto; 
+    text-align: center; 
+    font-size: 18px;
+    color: white;
+  }
+
+  .add-button{
+    text-align: center; 
+}
+
+.add-form{
+    text-align: center;
+    margin-left: 20px;
+}
+
+.add-form-field{
+    margin-right: 20px;
+}
