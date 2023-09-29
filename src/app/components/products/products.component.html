@@ -1,5 +1,5 @@
 <br>
-<h1>Products Manager</h1>
+<h1>Administrador de productos</h1>
 
 <div *ngIf="isLoading">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -13,7 +13,7 @@
 
 <div class="add-form" *ngIf="enableAdd">
   <mat-form-field class="add-form-field">
-    <mat-label>Name</mat-label>
+    <mat-label>Nombre</mat-label>
     <input matInput type="text" [(ngModel)]="product.name">
     <button *ngIf="product.name" matSuffix mat-icon-button aria-label="Clear" (click)="product.name=''">
       <mat-icon>close</mat-icon>
@@ -21,7 +21,7 @@
   </mat-form-field>
 
   <mat-form-field class="add-form-field">
-    <mat-label>Description</mat-label>
+    <mat-label>Descripción</mat-label>
     <input matInput type="text" [(ngModel)]="product.description">
     <button *ngIf="product.description" matSuffix mat-icon-button aria-label="Clear" (click)="product.description=''">
       <mat-icon>close</mat-icon>
@@ -29,7 +29,7 @@
   </mat-form-field>
 
   <mat-form-field class="add-form-field">
-    <mat-label>Price (S/)</mat-label>
+    <mat-label>Precio (S/)</mat-label>
     <input matInput type="text" [(ngModel)]="product.price">
     <button *ngIf="product.price" matSuffix mat-icon-button aria-label="Clear" (click)="product.price=''">
       <mat-icon>close</mat-icon>
@@ -37,22 +37,28 @@
   </mat-form-field>
 
   <mat-form-field class="add-form-field">
-    <mat-label>Weight (KG)</mat-label>
+    <mat-label>Peso (KG)</mat-label>
     <input matInput type="text" [(ngModel)]="product.weight">
     <button *ngIf="product.weight" matSuffix mat-icon-button aria-label="Clear" (click)="product.weight=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <br>
 
+  <h4>Imagen</h4>
   <mat-form-field class="add-form-field">
-    <mat-label>Image URL</mat-label>
+    <mat-label>URL de imagen</mat-label>
     <input matInput type="text" [(ngModel)]="product.image">
     <button *ngIf="product.image" matSuffix mat-icon-button aria-label="Clear" (click)="product.image=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <div class="image-container">
+    <img class="image-preview" onerror="this.src='https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'" [src]="product.image">
+  </div>
+  <br>
 
-  <button mat-raised-button (click)="addProduct(); enableAdd=false; clearAllAddFields()" class="add-product-button" color="primary">Add product</button>
+  <button mat-raised-button (click)="addProduct(); enableAdd=false; clearAllAddFields()" class="add-product-button" color="primary">Añadir producto</button>
 </div>
 
 <br>
@@ -64,56 +70,77 @@
         <th mat-header-cell *matHeaderCellDef> Id </th>
         <td mat-cell *matCellDef="let element; let i = index"> 
           <span *ngIf="!enableEdit || enableEditIndex != i">{{element.id}}</span>
-          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.id" />
+        <mat-form-field class="edit-field" appearance="outline" *ngIf="enableEdit && enableEditIndex == i"><input matInput disabled [(ngModel)]="element.id" />
+        </mat-form-field>
         </td>
       </ng-container>
   
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
         <td mat-cell *matCellDef="let element; let i = index"> 
           <span *ngIf="!enableEdit || enableEditIndex != i">{{element.name}}</span>
-          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.name" />
+        <mat-form-field class="edit-field" appearance="outline" *ngIf="enableEdit && enableEditIndex == i"><input matInput  [(ngModel)]="element.name" />
+          <button *ngIf="element.name" matSuffix mat-icon-button aria-label="Clear" (click)="element.name=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
         </td>
       </ng-container>
   
       <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <th mat-header-cell *matHeaderCellDef> Descripción </th>
         <td mat-cell *matCellDef="let element; let i = index"> 
           <span *ngIf="!enableEdit || enableEditIndex != i">{{element.description}}</span>
-          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.description" />
+        <mat-form-field class="edit-field" appearance="outline" *ngIf="enableEdit && enableEditIndex == i"><input matInput  [(ngModel)]="element.description" />
+          <button *ngIf="element.description" matSuffix mat-icon-button aria-label="Clear" (click)="element.description=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
         </td>
       </ng-container>
   
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
         <td mat-cell *matCellDef="let element; let i = index"> 
           <span *ngIf="!enableEdit || enableEditIndex != i">S/ {{element.price}}</span>
-          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.price" />
+        <mat-form-field class="edit-field" appearance="outline" *ngIf="enableEdit && enableEditIndex == i"><input matInput  [(ngModel)]="element.price" />
+          <button *ngIf="element.price" matSuffix mat-icon-button aria-label="Clear" (click)="element.price=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <th mat-header-cell *matHeaderCellDef> Peso </th>
         <td mat-cell *matCellDef="let element; let i = index"> 
           <span *ngIf="!enableEdit || enableEditIndex != i">{{element.weight}} KG</span>
-          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.weight" />
+        <mat-form-field class="edit-field" appearance="outline" *ngIf="enableEdit && enableEditIndex == i"><input matInput  [(ngModel)]="element.weight" />
+          <button *ngIf="element.weight" matSuffix mat-icon-button aria-label="Clear" (click)="element.weight=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="image">
-        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <th mat-header-cell *matHeaderCellDef> Foto </th>
         <td mat-cell *matCellDef="let element; let i = index"> 
           <br> 
-          <img [src]="element.image"> 
-          <input *ngIf="enableEdit && enableEditIndex == i" [(ngModel)]="element.image" />
+          <img class="product-image" [src]="element.image"> 
+        <mat-form-field class="edit-field" appearance="outline" *ngIf="enableEdit && enableEditIndex == i"><input matInput  [(ngModel)]="element.image" />
+          <button *ngIf="element.image" matSuffix mat-icon-button aria-label="Clear" (click)="element.image=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="modify">
-        <th mat-header-cell *matHeaderCellDef> Modify </th>
+        <th mat-header-cell *matHeaderCellDef> Modificar </th>
         <td mat-cell *matCellDef="let element; let i = index">
-          <button mat-button *ngIf="enableEdit && enableEditIndex == i" (click)="enableEdit=false" class="btn page-secondary-action-btn">Cancel</button>
-          <button mat-button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn" class="btn page-primary-action-btn" (click)="updateProduct(i)" type="submit">Save</button>
+          <button mat-button *ngIf="enableEdit && enableEditIndex == i" (click)="enableEdit=false" class="btn page-secondary-action-btn">Cancelar</button>
+          <button mat-button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn" class="btn page-primary-action-btn" (click)="updateProduct(i)" type="submit">Guardar</button>
           <button mat-icon-button *ngIf="!enableEdit" (click)="enableEditMethod($event, i)"><mat-icon>edit</mat-icon></button>
           <button mat-icon-button *ngIf="!enableEdit" (click)="deleteProduct(element.id)"><mat-icon>delete</mat-icon></button>
         </td>

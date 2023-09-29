@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CardsService } from 'src/app/services/cards.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-account',
@@ -28,7 +28,7 @@ export class AccountComponent {
     this.newCard.name='';
   }
 
-  constructor(private cardsService:CardsService) { }
+  constructor(private cardsService:CardsService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getCardsList();
@@ -41,7 +41,7 @@ export class AccountComponent {
           this.cards=data;
         },
         error: (error:any)=>{
-          console.error('Error fetching cards', error);
+          this.toastr.error('Error al cargar los métodos de pago', 'Error');
         }
       }
     )
@@ -54,11 +54,12 @@ export class AccountComponent {
     this.cardsService.addCard(this.newCard).subscribe(
       {
         next: (data:any)=>{
+          this.toastr.success('Método de pago agregado con éxito', 'Éxito');
           this.getCardsList();
           this.clearAllAddFields();
         },
         error: (error:any)=>{
-          console.error('Error posting card', error);
+          this.toastr.error('Error al agregar el método de pago', 'Error');
         }
       }
     )
@@ -68,10 +69,11 @@ export class AccountComponent {
     this.cardsService.deleteCard(cardId).subscribe(
       {
         next: (data:any)=>{
+          this.toastr.success('Método de pago eliminado con éxito', 'Éxito');
           this.getCardsList();
         },
         error: (error:any)=>{
-          console.error('Error deleting card', error);
+          this.toastr.error('Error al eliminar el método de pago', 'Error');
         }
       }
     )
@@ -96,10 +98,11 @@ export class AccountComponent {
       this.newCard.expirationDate = expDate.toISOString();
         this.cardsService.updateCard(this.newCard, cardId).subscribe({
           next: (data:any)=>{
+            this.toastr.success('Método de pago actualizado con éxito', 'Éxito');
             this.getCardsList();
           },
           error: (error:any)=>{
-            console.error('Error updating card', error);
+            this.toastr.error('Error al actualizar el método de pago', 'Error');
           }
         });
       
